@@ -1,0 +1,207 @@
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, Outlet } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import Swal from 'sweetalert2';
+// import Modal from "../components/Modal";
+
+function Dashboard() {
+  const navigate = useNavigate();
+
+  const [users, setUsers] = useState([]);
+
+  const LoadEdit = (id) => {
+    navigate('/dash/Edit/' + id);
+  };
+  const Removefunction = (id) => {
+    if (window.confirm('Do you want to remove?')) {
+      fetch('http://localhost:3000/users/' + id, {
+        method: 'DELETE',
+      })
+        .then((res) => {
+          alert('Removed successfully.');
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
+  };
+
+  useEffect(() => {
+    fetch('http://localhost:3000/users')
+      .then((res) => {
+        return res.json();
+      })
+      .then((resp) => {
+        setUsers(resp);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  useEffect(() => {
+    let email = sessionStorage.getItem('email');
+    if (email === null || email === '') {
+      navigate('/login');
+    }
+  }, []);
+
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger',
+    },
+    buttonsStyling: false,
+  });
+
+  const callAlert = (id) =>
+    swalWithBootstrapButtons
+      .fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+
+          fetch('http://localhost:3000/users/' + id, {
+            method: 'DELETE',
+          })
+          .then((res) => {
+            // alert('Removed successfully.');
+            // window.location.reload();
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+
+          swalWithBootstrapButtons.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          ).then(function(){ 
+            location.reload();
+            });
+
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+          );
+        }
+      });
+
+  return (
+    <>
+      <Navbar />
+      <div
+        className='container overflow-hidden'
+        style={{ marginTop: '20px', width: '3000px' }}
+      >
+        <div className='card'>
+          <div className='card-title'>
+            <h2 className='text-center'>User Listing</h2>
+          </div>
+          <div className='card-body'>
+            <table className='table table-bordered '>
+              <thead className='bg-dark text-white'>
+                <tr>
+                  <td>First Name</td>
+                  <td>Last Name</td>
+                  <td>Email</td>
+                  <td>Age</td>
+                  <td>Created At</td>
+                  <td>Encrypted Password</td>
+                  {/* <td>Decrypted Password</td> */}
+                  <td>Action</td>
+                </tr>
+              </thead>
+              <tbody>
+                {users &&
+                  users.map((user) => (
+                    <tr key={user._id}>
+                      <td>{user.firstName}</td>
+                      <td>{user.lastName}</td>
+                      <td>{user.id}</td>
+                      <td>{user.age}</td>
+                      <td>{user.Created_At}</td>
+                      {/* <td>{user.hashPassword}</td> */}
+                      <td>{user.decryptPass}</td>
+                      <td className='d-flex justify-content-between'>
+                        <Link to={'/dash/create'}>
+                          <a className='btn btn-primary'>Add</a>
+                        </Link>
+                        <a
+                          onClick={() => {
+                            LoadEdit(user.id);
+                          }}
+                          className='btn btn-success'
+                        >
+                          Edit
+                        </a>
+                        <a
+                          onClick={() => {
+                            callAlert(user.id);
+                          }}
+                          className='btn btn-danger'
+                        >
+                          Del
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                {/* {empdata &&
+                  empdata.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.id}</td>
+                      <td>{item.name}</td>
+                      <td>{item.email}</td>
+                      <td>{item.phone}</td>
+                      <td>
+                        <a
+                          onClick={() => {
+                            LoadEdit(item.id);
+                          }}
+                          className="btn btn-success"
+                        >
+                          Edit
+                        </a>
+                        <a
+                          onClick={() => {
+                            Removefunction(item.id);
+                          }}
+                          className="btn btn-danger"
+                        >
+                          Remove
+                        </a>
+                        <a
+                          onClick={() => {
+                            LoadDetail(item.id);
+                          }}
+                          className="btn btn-primary"
+                        >
+                          Details
+                        </a>
+                      </td>
+                    </tr>
+                  ))} */}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <Outlet />
+      </div>
+    </>
+  );
+}
+
+export default Dashboard;

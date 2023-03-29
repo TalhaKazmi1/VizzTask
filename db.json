@@ -1,0 +1,13 @@
+{
+  "users": [
+    {
+      "firstName": "das",
+      "lastName": "44622",
+      "age": 22,
+      "id": "mile11y@gmail.com",
+      "hashPassword": "$2a$04$jqOorgMkSOmv3Ia5SSweFOhLwb5fSu/ocbBnLNeDKwbeI0LVQ5toK",
+      "decryptPass": "abcABC1@",
+      "Created_At": "2023-03-28T21:40:47.744Z"
+    }
+  ]
+}
