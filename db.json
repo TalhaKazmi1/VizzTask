@@ -1,13 +1,14 @@
 {
   "users": [
     {
-      "firstName": "das",
-      "lastName": "44622",
-      "age": 22,
-      "id": "mile11y@gmail.com",
-      "hashPassword": "$2a$04$jqOorgMkSOmv3Ia5SSweFOhLwb5fSu/ocbBnLNeDKwbeI0LVQ5toK",
-      "decryptPass": "abcABC1@",
-      "Created_At": "2023-03-28T21:40:47.744Z"
+      "firstName": "talha",
+      "lastName": "kazmi",
+      "age": 0,
+      "date": "2023-03-08",
+      "id": "tt@gmail.com",
+      "hashPassword": "$2a$04$HoRS0gqq2QvV9HAJhW4b1uc3xvUikpVlq9HuIC1Bv2rMLMnqaOUhS",
+      "decryptPass": "123456@Ab",
+      "Created_At": "2023-03-30T19:13:44.535Z"
     }
   ]
 }

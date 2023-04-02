@@ -1,7 +1,7 @@
-import React from 'react'
-import { Modal,Button } from 'bootstrap'
+import React from "react";
+import { Modal, Button } from "bootstrap";
 
-function DeleteModal({show,onHide,onDelete}) {
+function DeleteModal({ show, onHide, onDelete }) {
   return (
     <Modal
       show={show}
@@ -24,7 +24,7 @@ function DeleteModal({show,onHide,onDelete}) {
         </Button>
       </Modal.Footer>
     </Modal>
-  )
+  );
 }
 
-export default DeleteModal
+export default DeleteModal;

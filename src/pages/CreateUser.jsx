@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import DatePicker from "../components/DatePicker";
 import bcrypt from "bcryptjs";
 
-function CreateUser() {
+function CreateUser({ handleClose }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [date, setDate] = useState("");
@@ -79,6 +79,7 @@ function CreateUser() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const decryptPass = password;
     const hashPassword = bcrypt.hashSync(password, 3);
     var Created_At = new Date();
@@ -86,6 +87,7 @@ function CreateUser() {
       firstName,
       lastName,
       age,
+      date,
       id,
       hashPassword,
       decryptPass,
@@ -104,7 +106,9 @@ function CreateUser() {
         .then((res) => res.json())
         .then((res) => {
           toast.success("Success");
-          navigate("/dash");
+          // navigate("/dash");
+          handleClose();
+          window.location.reload();
         })
         .catch((err) => {
           // console.log(err);
@@ -112,6 +116,7 @@ function CreateUser() {
         });
     }
   };
+
   return (
     <section class="">
       <div class="container py-5 h-100">
@@ -120,7 +125,7 @@ function CreateUser() {
             <div class="card shadow-2-strong card-registration">
               <div class="card-body p-4 p-md-5 ">
                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center fw-bold ">
-                  Create User
+                  Add User
                 </h3>
                 <form onSubmit={handleSubmit}>
                   <div class="row">
@@ -204,7 +209,7 @@ function CreateUser() {
                     </div>
                   </div>
 
-                  <div class="row border " style={{ border: "20px" }}>
+                  {/* <div class="row border " style={{ border: "20px" }}>
                     <div class="col-9">
                       <p className="mx-auto">Hobbies</p>
 
@@ -275,7 +280,7 @@ function CreateUser() {
                         </label>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* <div className="py-2 mt-5">
                     <input id="checkbox" type="checkbox" required />

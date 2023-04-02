@@ -1,101 +1,119 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useLocalStorage } from '../Shared/hooks/useLocalStorage';
 
-function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function Login(token) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { setUserAsync } = useLocalStorage();
 
   const ProceedLogin = (e) => {
     e.preventDefault();
     if (validate()) {
       ///implentation
-      console.log("email", email);
-      fetch("http://localhost:3000/users/" + email)
+      console.log('email', email);
+      fetch('http://localhost:3000/users/' + email)
         .then((res) => {
           return res.json();
         })
         .then((resp) => {
           //console.log(resp)
           if (Object.keys(resp).length === 0) {
-            toast.error("Please Enter valid Email");
+            toast.error('Please Enter valid Email');
           } else {
             if (resp.decryptPass === password) {
-              toast.success("Success");
-              sessionStorage.setItem("email", email);
+              toast.success('Success');
+              // sessionStorage.setItem("email", email);
+              setUserAsync(email);
               // sessionStorage.setItem("userrole", resp.role);
-              navigate("/dash");
+              // navigate('/dash');
             } else {
-              toast.error("Please Enter valid credentials");
+              toast.error('Please Enter valid credentials');
             }
           }
         })
         .catch((err) => {
-          toast.error("Login Failed due to :" + err.message);
+          toast.error('Login Failed due to :' + err.message);
         });
     }
   };
 
+  useEffect(() => {
+    if (token) {
+      navigate('/dash');
+    }
+  }, [token]);
+
   const validate = () => {
     let result = true;
-    if (email === "" || email === null) {
+    if (email === '' || email === null) {
       result = false;
-      toast.warning("Please Enter email");
+      toast.warning('Please Enter email');
     }
-    if (password === "" || password === null) {
+    if (password === '' || password === null) {
       result = false;
-      toast.warning("Please Enter Password");
+      toast.warning('Please Enter Password');
     }
     return result;
   };
 
-  useEffect(() => {
-    sessionStorage.clear();
-  }, []);
+  function refreshPage() {
+    navigate('/signup');
+    window.location.reload();
+  }
 
   return (
-    <section class="vh-100 bg-primary">
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card  text-white">
-              <div class="card-body p-5 text-center">
-                <div class="mb-md-5 mt-md-4 pb-5">
-                  <h2 class="fw-bold mb-2 text-uppercase text-dark">Login</h2>
-                  <p class="mb-5 text-dark">
+    <section class='vh-100 bg-primary'>
+      <div class='container py-5 h-100'>
+        <div class='row d-flex justify-content-center align-items-center h-100'>
+          <div class='col-12 col-md-8 col-lg-6 col-xl-5'>
+            <div class='card  text-white'>
+              <div class='card-body p-5 text-center'>
+                <div class='mb-md-5 mt-md-4 pb-5'>
+                  <h2 class='fw-bold mb-2 text-uppercase text-dark'>Login</h2>
+                  <p class='mb-5 text-dark'>
                     Please enter your login and password!
                   </p>
                   <form onSubmit={ProceedLogin}>
-                    <div class="form-outline form-white mb-4">
-                      <label class=" form-label text-dark" for="typeEmailX">
+                    <div class='form-outline form-white mb-4'>
+                      <label
+                        class=' form-label text-dark text-start'
+                        style={{ float: 'left' }}
+                        for='typeEmailX'
+                      >
                         Email
                       </label>
                       <input
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        type="email"
-                        id="typeEmailX"
-                        class="form-control form-control-lg"
+                        type='email'
+                        id='typeEmailX'
+                        class='form-control form-control-lg'
                       />
                     </div>
 
-                    <div class="form-outline form-white mb-4">
-                      <label class="form-label text-dark" for="typePasswordX">
+                    <div class='form-outline form-white mb-4'>
+                      <label
+                        style={{ float: 'left' }}
+                        class='form-label text-dark'
+                        for='typePasswordX'
+                      >
                         Password
                       </label>
                       <input
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        type="password"
-                        id="typePasswordX"
-                        class="form-control form-control-lg"
+                        type='password'
+                        id='typePasswordX'
+                        class='form-control form-control-lg'
                       />
                     </div>
 
                     <button
-                      class="btn btn-primary px-5 text-white"
-                      type="submit"
+                      class='btn btn-primary px-5 text-white'
+                      type='submit'
                     >
                       Login
                     </button>
@@ -103,10 +121,10 @@ function Login() {
                 </div>
 
                 <div>
-                  <p class="mb-0 text-dark">
-                    Don't have an account?{" "}
-                    <Link to={"/SignUp"}>
-                      <a href="#!" class="text-dark-50 fw-bold">
+                  <p class='mb-0 text-dark'>
+                    Don't have an account?{' '}
+                    <Link onClick={refreshPage}>
+                      <a href='#!' class='text-dark-50 fw-bold text-primary'>
                         Sign Up
                       </a>
                     </Link>
