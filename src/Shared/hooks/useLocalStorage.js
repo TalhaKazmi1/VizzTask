@@ -10,8 +10,7 @@ export const useLocalStorage = () => {
   const [getUserAsync, setUserAsync] = useState(getToken());
 
   const saveToken = (AdminData) => {
-    console.log(AdminData);
-    localStorage.setItem('AdminData', JSON.stringify(AdminData));
+    localStorage.setItem('AdminData', JSON.stringify(AdminData.token));
     if (AdminData) {
       setUserAsync(AdminData);
     }

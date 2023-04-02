@@ -6,8 +6,6 @@ function Navbar() {
   function refreshPage() {
     localStorage.clear();
     navigate('/login');
-
-    // window.location.reload();
   }
   return (
     <nav class='navbar navbar-expand-lg bg-primary'>
@@ -16,15 +14,13 @@ function Navbar() {
           <ul class='navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll'>
             {/* <li className=" text-bl py-2 px-2 rounded-3">Vizz Web Test</li> */}
           </ul>
-          <form class='d-flex' role='search'>
-            <Link onClick={refreshPage}>
+          <form onSubmit={refreshPage} class='d-flex' role='search'>
               <button
                 class='btn btn-outline-success text-black bg-white'
                 type='submit'
               >
                 Log Out
               </button>
-            </Link>
           </form>
         </div>
       </div>

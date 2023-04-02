@@ -7,8 +7,10 @@ import CreateUser from "./CreateUser";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import EditUser from "./EditUser";
+// import { useAuth } from "../Shared/hooks/AuthProvider";
 
 function Dashboard() {
+  // const { isLoggedIn } = useAuth()
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -39,13 +41,12 @@ function Dashboard() {
       });
   }, []);
 
-  // Reusable
-  useEffect(() => {
-    let email = sessionStorage.getItem("email");
-    if (email === null || email === "") {
-      navigate("/login");
-    }
-  }, []);
+  // // Reusable
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     navigate("/login");
+  //   }
+  // }, []);
 
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {

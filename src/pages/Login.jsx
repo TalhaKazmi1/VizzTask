@@ -3,32 +3,30 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useLocalStorage } from '../Shared/hooks/useLocalStorage';
 
-function Login(token) {
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { setUserAsync } = useLocalStorage();
+  const { setUserAsync, getUserAsync } = useLocalStorage();
 
   const ProceedLogin = (e) => {
     e.preventDefault();
     if (validate()) {
       ///implentation
-      console.log('email', email);
       fetch('http://localhost:3000/users/' + email)
         .then((res) => {
           return res.json();
         })
         .then((resp) => {
-          //console.log(resp)
-          if (Object.keys(resp).length === 0) {
+          // if (Object.keys(resp).length === 0) {
+          if (resp.id != email) {
             toast.error('Please Enter valid Email');
           } else {
             if (resp.decryptPass === password) {
               toast.success('Success');
-              // sessionStorage.setItem("email", email);
-              setUserAsync(email);
+              setUserAsync(resp);
+              navigate('/')
               // sessionStorage.setItem("userrole", resp.role);
-              // navigate('/dash');
             } else {
               toast.error('Please Enter valid credentials');
             }
@@ -41,10 +39,10 @@ function Login(token) {
   };
 
   useEffect(() => {
-    if (token) {
-      navigate('/dash');
+    if (getUserAsync) {
+      navigate('/');
     }
-  }, [token]);
+  }, [getUserAsync]);
 
   const validate = () => {
     let result = true;

@@ -8,7 +8,8 @@
       "id": "tt@gmail.com",
       "hashPassword": "$2a$04$HoRS0gqq2QvV9HAJhW4b1uc3xvUikpVlq9HuIC1Bv2rMLMnqaOUhS",
       "decryptPass": "123456@Ab",
-      "Created_At": "2023-03-30T19:13:44.535Z"
+      "Created_At": "2023-03-30T19:13:44.535Z",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0YjM1MmIzNy0zMzJhLTQwYzYtYWIwNS1lMzhmY2YxMDk3MTkiLCJVc2VySUQiOiI0YjM1MmIzNy0zMzJhLTQwYzYtYWIwNS1lMzhmY2YxMDk3MTkiLCJFbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsIm5iZiI6MTY4MDQyODQ3MCwiZXhwIjoxNjgwNDcxNjcwLCJpc3MiOiJodHRwczovL3JhdXJhdXRlc3RpbmcuYXp1cmV3ZWJzaXRlcy5uZXQiLCJhdWQiOiJEb2N1bWVudFVzZXJzIn0.MkT3dYx48VrSI2BGcBa6Wj8Oo3zYZN_tRUNIur20Mds"
     }
   ]
 }
