@@ -11,15 +11,9 @@ import EditUser from "./EditUser";
 import DashTBody from "../components/DashTBody";
 
 function Dashboard() {
-  // const { isLoggedIn } = useAuth()
-  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [show1, setShow1] = useState(false);
-  const handleClose1 = () => setShow1(false);
-  const handleShow1 = () => setShow1(true);
-  const [users, setUsers] = useState([]);
 
   return (
     <>

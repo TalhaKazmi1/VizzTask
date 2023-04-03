@@ -7,9 +7,6 @@ import Swal from "sweetalert2";
 function DashTBody() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  //   const [show, setShow] = useState(false);
-  //   const handleClose = () => setShow(false);
-  //   const handleShow = () => setShow(true);
 
   const LoadEdit = (id) => {
     navigate("/Edit/" + id);
@@ -121,30 +118,6 @@ function DashTBody() {
               >
                 Del
               </a>
-
-              {/* <Button variant="primary" onClick={handleShow1}>
-                          Launch demo modal
-                        </Button>
-
-                        <Modal show={show1} onHide={handleClose1} size="xl">
-                          <Modal.Header closeButton>
-                            <Modal.Title>Modal heading</Modal.Title>
-                          </Modal.Header>
-                          <Modal.Body>
-                            <EditUser
-                              handleClose1={handleClose1}
-                              userid={user.id}
-                            />
-                          </Modal.Body>
-                          {/* <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose1}>
-                              Close
-                            </Button>
-                            <Button variant="primary" onClick={handleClose1}>
-                              Save Changes
-                            </Button>
-                          </Modal.Footer> */}
-              {/* </Modal>  */}
             </td>
           </tr>
         ))}

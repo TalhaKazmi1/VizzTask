@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState } from "react";
 export const useLocalStorage = () => {
   const getToken = () => {
-    const myToken = localStorage.getItem('AdminData');
+    const myToken = localStorage.getItem("AdminData");
     if (myToken) {
       return true;
     }
@@ -10,7 +10,7 @@ export const useLocalStorage = () => {
   const [getUserAsync, setUserAsync] = useState(getToken());
 
   const saveToken = (AdminData) => {
-    localStorage.setItem('AdminData', JSON.stringify(AdminData.token));
+    localStorage.setItem("AdminData", JSON.stringify(AdminData.token));
     if (AdminData) {
       setUserAsync(AdminData);
     }
