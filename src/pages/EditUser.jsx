@@ -127,7 +127,7 @@ function EditUser() {
         .then((res) => res.json())
         .then((res) => {
           toast.success("Success");
-          navigate("/dash");
+          navigate("/");
         })
         .catch((err) => {
           // console.log(err);
@@ -137,7 +137,7 @@ function EditUser() {
   };
 
   function refreshPage() {
-    navigate("/dash");
+    navigate("/");
     window.location.reload();
   }
 
@@ -186,8 +186,25 @@ function EditUser() {
                     </div>
 
                     <div class="row">
-                      <DatePicker value={date} setDate={setDate} />
+                      <div class="col-md-6 mb-4 pb-2">
+                        <div class="form-outline">
+                          <label class="form-label" for="id">
+                            Email
+                          </label>
+                          <input
+                            value={id}
+                            onChange={(e) => setId(e.target.value)}
+                            type="id"
+                            id="id"
+                            class="form-control form-control-lg"
+                          />
+                        </div>
+                      </div>
 
+                      <DatePicker value={date} setDate={setDate} />
+                    </div>
+
+                    <div class="row">
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
                           <label class="form-label" for="password">
@@ -202,9 +219,6 @@ function EditUser() {
                           />
                         </div>
                       </div>
-                    </div>
-
-                    <div class="row">
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
                           <label class="form-label" for="confirmPassword">
@@ -215,21 +229,6 @@ function EditUser() {
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             type="password"
                             id="confirmPassword"
-                            class="form-control form-control-lg"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-md-6 mb-4 pb-2">
-                        <div class="form-outline">
-                          <label class="form-label" for="id">
-                            Email
-                          </label>
-                          <input
-                            disabled
-                            value={id}
-                            onChange={(e) => setId(e.target.value)}
-                            type="id"
-                            id="id"
                             class="form-control form-control-lg"
                           />
                         </div>

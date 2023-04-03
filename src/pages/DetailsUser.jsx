@@ -84,7 +84,7 @@ function DetailsUser() {
 
       <div className="text-center">
         {" "}
-        <Link to={"/dash"}>
+        <Link to={"/"}>
           <input
             //   onClick={refreshPage}
             class="btn btn-danger btn-lg mx-2"

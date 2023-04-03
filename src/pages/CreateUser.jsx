@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import DatePicker from "../components/DatePicker";
 import bcrypt from "bcryptjs";
+import { generateToken } from "../Shared/utils/GenerateToken";
 
 function CreateUser({ handleClose }) {
   const [firstName, setFirstName] = useState("");
@@ -77,11 +78,25 @@ function CreateUser({ handleClose }) {
 
   const age = calculate_age(new Date(date));
 
+  // function generateToken(length) {
+  //   let token = "";
+  //   const characters =
+  //     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  //   for (let i = 0; i < length; i++) {
+  //     token += characters.charAt(Math.floor(Math.random() * characters.length));
+  //   }
+  //   return token;
+  // }
+
+  // Example usage
+  // console.log(token); // Output: "pLgGzV33Eo"
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const decryptPass = password;
     const hashPassword = bcrypt.hashSync(password, 3);
+    const token = generateToken(10); // Generate a 10-character token
     var Created_At = new Date();
     let obj = {
       firstName,
@@ -91,6 +106,7 @@ function CreateUser({ handleClose }) {
       id,
       hashPassword,
       decryptPass,
+      token,
       Created_At,
     };
     if (isValidate()) {
@@ -160,39 +176,6 @@ function CreateUser({ handleClose }) {
                   </div>
 
                   <div class="row">
-                    <DatePicker value={date} setDate={setDate} />
-
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <label class="form-label" for="password">
-                          Password
-                        </label>
-                        <input
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          type="password"
-                          id="password"
-                          class="form-control form-control-lg"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-6 mb-4 pb-2">
-                      <div class="form-outline">
-                        <label class="form-label" for="confirmPassword">
-                          Confirm Password
-                        </label>
-                        <input
-                          value={confirmPassword}
-                          onChange={(e) => setConfirmPassword(e.target.value)}
-                          type="password"
-                          id="confirmPassword"
-                          class="form-control form-control-lg"
-                        />
-                      </div>
-                    </div>
                     <div class="col-md-6 mb-4 pb-2">
                       <div class="form-outline">
                         <label class="form-label" for="id">
@@ -207,88 +190,40 @@ function CreateUser({ handleClose }) {
                         />
                       </div>
                     </div>
+
+                    <DatePicker value={date} setDate={setDate} />
                   </div>
 
-                  {/* <div class="row border " style={{ border: "20px" }}>
-                    <div class="col-9">
-                      <p className="mx-auto">Hobbies</p>
-
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="inlineCheckbox1"
-                          value="option1"
-                        />
-                        <label class="form-check-label " for="inlineCheckbox1">
-                          Cricket
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="password">
+                          Password
                         </label>
-                      </div>
-                      <div class="form-check form-check-inline">
                         <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="inlineCheckbox2"
-                          value="option2"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          type="password"
+                          id="password"
+                          class="form-control form-control-lg"
                         />
-                        <label class="form-check-label" for="inlineCheckbox2">
-                          Football
-                        </label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="inlineCheckbox3"
-                          value="option3"
-                        />
-                        <label class="form-check-label" for="inlineCheckbox3">
-                          Hockey
-                        </label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="inlineCheckbox3"
-                          value="option3"
-                        />
-                        <label class="form-check-label" for="inlineCheckbox3">
-                          Chess
-                        </label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="inlineCheckbox3"
-                          value="option3"
-                        />
-                        <label class="form-check-label" for="inlineCheckbox3">
-                          Esports
-                        </label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="inlineCheckbox3"
-                          value="option3"
-                        />
-                        <label class="form-check-label" for="inlineCheckbox3">
-                          Sigma
-                        </label>
                       </div>
                     </div>
-                  </div> */}
-
-                  {/* <div className="py-2 mt-5">
-                    <input id="checkbox" type="checkbox" required />
-                    <label for="checkbox ">
-                      {" "}
-                      I agree to these <a href="#">Terms and Conditions</a>.
-                    </label>
-                  </div> */}
+                    <div class="col-md-6 mb-4 pb-2">
+                      <div class="form-outline">
+                        <label class="form-label" for="confirmPassword">
+                          Confirm Password
+                        </label>
+                        <input
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          type="password"
+                          id="confirmPassword"
+                          class="form-control form-control-lg"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
                   <div class="mt-4 pt-2">
                     <input
